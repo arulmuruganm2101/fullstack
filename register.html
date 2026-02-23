@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Register - Cute Lamp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+    --bg:#0b0f1a;
+    --card:#12182b;
+    --glow:#ff5f9e;
+    --glow-dark:#b93b6f;
+    --text:#ffffff;
+}
+*{box-sizing:border-box;font-family:Segoe UI, Arial, sans-serif;}
+body{
+    margin:0;
+    min-height:100vh;
+    background:radial-gradient(circle at top,#1a2140,var(--bg));
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--text);
+}
+.container{display:flex;gap:40px;align-items:center;}
+.lamp{text-align:center;}
+.lamp-head{
+    height:70px;width:120px;
+    background:linear-gradient(#ffb6c1,#ff7fa5);
+    border-radius:60px 60px 40px 40px;
+    box-shadow:0 0 30px rgba(255,182,193,0.8);
+    font-size:28px;line-height:70px;
+}
+.lamp-stand{width:10px;height:70px;background:#ccc;margin:0 auto;}
+.lamp-base{width:50px;height:10px;background:#aaa;border-radius:10px;margin:0 auto;}
+.card{
+    width:320px;padding:30px;
+    background:var(--card);
+    border-radius:18px;
+    box-shadow:0 0 25px var(--glow),0 0 50px rgba(255,95,158,0.4);
+    text-align:center;
+}
+.card h2{color:var(--glow);}
+input{
+    width:100%;padding:10px;margin:10px 0;
+    border:none;border-radius:8px;outline:none;
+}
+button{
+    width:100%;padding:12px;
+    background:linear-gradient(135deg,var(--glow),var(--glow-dark));
+    border:none;border-radius:10px;
+    color:white;font-size:16px;cursor:pointer;margin-top:10px;
+}
+button:hover{opacity:0.9;}
+.link{margin-top:15px;}
+.link a{color:var(--glow);text-decoration:none;}
+.message{margin-top:15px;font-weight:bold;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="lamp">
+    <div class="lamp-head" id="lampFace">😊</div>
+    <div class="lamp-stand"></div>
+    <div class="lamp-base"></div>
+</div>
+
+<div class="card">
+    <h2>Register</h2>
+
+    <form onsubmit="register(event)">
+        <input type="text" id="newUser" placeholder="Username" required>
+        <input type="password" id="newPass" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <div class="message" id="msg"></div>
+
+    <div class="link">
+        Already have an account?
+        <a href="login.html">Login</a>
+    </div>
+</div>
+
+</div>
+
+<script>
+function register(event){
+    event.preventDefault();
+
+    const user = document.getElementById("newUser").value;
+    const pass = document.getElementById("newPass").value;
+    const msg = document.getElementById("msg");
+    const lamp = document.getElementById("lampFace");
+
+    if(localStorage.getItem(user)){
+        msg.style.color = "#ff4d4d";
+        msg.textContent = "User already exists!";
+        lamp.textContent = "😟";
+    } else {
+        localStorage.setItem(user, pass);
+
+        msg.style.color = "#4CAF50";
+        msg.textContent = "Registration Successful! Redirecting...";
+        lamp.textContent = "😄";
+
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 1500);
+    }
+}
+</script>
+
+</body>
+</html>
